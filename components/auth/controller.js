@@ -3,19 +3,28 @@ const bcrypt = require('bcryptjs');
 const store = require('./store');
 
 function createUser(req, res) {
-  const { user, pass, confirmPass } = req.body;
-
-  if (!user || pass !== confirmPass) {
+  if (!req.body.user || !req.body.email || req.body.pass !== req.body.confirmPass) {
     return res.status(400).json({
       error: true,
       message: 'Invalid request'
     });
   }
 
-  const hashPassword = bcrypt.hashSync(pass, 8);
-  console.log(hashPassword);
+  const userData = {
+    user: req.body.user,
+    email: req.body.email,
+    passDigest: bcrypt.hashSync(req.body.pass, 8)
+  };
 
-  res.status(200).json({'saludos': 'wenas'});
+  store.add(userData)
+    .then(res => {
+      console.log(res);
+      res.status(200).json({'saludos': 'qwe'});
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(200).json({'saludos': 'ert'});
+    })
 }
 
 module.exports = {

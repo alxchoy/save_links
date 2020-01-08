@@ -1,9 +1,16 @@
-const users = [
-  {user: 'choy', pass: 'abc123', confirmPass: 'abc123'}
-]
+const queries = require('./queries');
 
-function addUser() {
-  return new Promise()
+function addUser(data) {
+  const { user, email, passDigest } = data;
+  return new Promise((resolve, reject) => {
+    queries.createUser([user, email, passDigest])
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  })
 }
 
 module.exports = {
