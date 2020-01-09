@@ -1,18 +1,34 @@
 const queries = require('./queries');
 
 function addUser(data) {
-  const { user, email, passDigest } = data;
+  const { name, email, passwordHash } = data;
+
   return new Promise((resolve, reject) => {
-    queries.createUser([user, email, passDigest])
+    queries.createUser([name, email, passwordHash])
+      .then(res => resolve(res))
+      .catch(err => reject(err));
+  })
+}
+
+function getUserByEmail(email) {
+  return new Promise((resolve, reject) => {
+    queries.getUserByEmail(email)
       .then(res => {
-        console.log(res);
+        const user = {
+          name: res.rows[0].name,
+          email: res.rows[0].email,
+          password: res.rows[0].password,
+        };
+
+        resolve(user);
       })
       .catch(err => {
-        console.log(err);
+        reject(err);
       });
   })
 }
 
 module.exports = {
-  add: addUser
+  add: addUser,
+  getUser: getUserByEmail
 };
