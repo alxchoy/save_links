@@ -14,27 +14,20 @@ function createUser(userData) {
       email: userData.email,
       passwordHash: bcrypt.hashSync(userData.password, 8)
     })
-      .then((data) => {
-        console.log(data);
-
-        resolve('User created!');
-      })
-      .catch(err => {
-        console.log(err);
-        reject(err.detail)
-      });
+      .then(() => resolve('User created!'))
+      .catch(err => reject(err.detail));
   });
 }
 
 function loginUser(userData) {
   return new Promise((resolve, reject) => {
-    if (!userData.email || !userData.pass) {
+    if (!userData.email || !userData.password) {
       reject('Invalid request');
     }
 
     store.getUser(userData.email)
       .then(res => {
-        if (!bcrypt.compareSync(userData.pass, res.password)) {
+        if (!bcrypt.compareSync(userData.password, res.password)) {
           reject('Invalid data');
         }
 
@@ -46,10 +39,7 @@ function loginUser(userData) {
 
         resolve(token);
       })
-      .catch(err => {
-        console.log(err);
-        reject(err);
-      });
+      .catch(err => reject(err));
   });
 };
 
