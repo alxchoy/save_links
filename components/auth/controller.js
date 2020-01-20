@@ -46,7 +46,10 @@ function loginUser(userData) {
           { expiresIn: 3000 }
         )
 
-        resolve(token)
+        resolve({
+          access_token: token,
+          token_type: 'Bearear',
+        })
       })
       .catch(err => reject(err))
   })
