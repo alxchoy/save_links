@@ -1,30 +1,29 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
+const express = require('express')
 
-const controller = require('./controller');
-const response = require('../../network/response');
+const controller = require('./controller')
+const response = require('../../network/response')
 
-const router = express.Router();
+const router = express.Router()
 
 router.post('/create', (req, res) => {
   const userData = {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    confirmPassword: req.body.confirmPassword
-  };
+    confirmPassword: req.body.confirmPassword,
+  }
 
-  controller.create(userData)
+  controller
+    .create(userData)
     .then(data => response.success(res, data))
-    .catch(err => response.error(res, err));
-});
+    .catch(err => response.error(res, err))
+})
 
 router.post('/login', (req, res) => {
-  const data = req.body;
-
-  controller.login(data)
+  controller
+    .login(req.body)
     .then(data => response.success(res, data))
-    .catch(err => response.error(res, err));
-});
+    .catch(err => response.error(res, err))
+})
 
-module.exports = router;
+module.exports = router
