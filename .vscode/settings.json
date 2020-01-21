@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
   "editor.formatOnSave": true,
   "editor.tabSize": 2
 }
+=======
+  "editor.formatOnSave": true
+}
+>>>>>>> 5c3be48e85cbbb4a56ab01dfc6c05c95a932454f

@@ -10,5 +10,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 server.listen(8080, () => {
+  // eslint-disable-next-line no-console
   console.log('Run at port 8080')
 })

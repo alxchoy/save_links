@@ -6,7 +6,7 @@ const auth = require('./components/auth/network')
 
 const app = express()
 app.use(helmet())
-app.use(morgan('tiny'))
+app.use(morgan('combined'))
 app.use(express.json())
 
 app.use('/auth', auth)

@@ -13,18 +13,17 @@ function createUser(userData) {
       reject(new Error('Invalid request'))
     }
 
+    const data = {
+      name: userData.name,
+      email: userData.email,
+      passwordHash: bcrypt.hashSync(userData.password, 8),
+      created_at: new Date(),
+    }
+
     store
-      .add({
-        name: userData.name,
-        email: userData.email,
-        passwordHash: bcrypt.hashSync(userData.password, 8),
-        updateAt: new Date(),
-      })
-      .then(res => {
-        console.log(res)
-        resolve('Created user')
-      })
-      .catch(err => reject(err))
+      .add(data)
+      .then(() => resolve('User created!'))
+      .catch(err => reject(err.detail))
   })
 }
 
@@ -47,7 +46,10 @@ function loginUser(userData) {
           { expiresIn: 3000 }
         )
 
-        resolve({ auth_token: token, toke_type: 'Bearer' })
+        resolve({
+          access_token: token,
+          token_type: 'Bearear',
+        })
       })
       .catch(err => reject(err))
   })
