@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 function successResponse(res, data, message = '', status = 200) {
   console.log(data)
 
