@@ -26,9 +26,7 @@ function createUser(userData) {
   })
 }
 
-function updateUser(req, res) {
-  console.log(req.body)
-}
+function updateUser() {}
 
 module.exports = {
   createUser,
