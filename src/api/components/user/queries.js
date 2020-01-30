@@ -12,7 +12,7 @@ function getUserByEmail(email) {
 
 function createUser(data) {
   return pool.query(
-    'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
+    'INSERT INTO users (name, email, password, created_at) VALUES ($1, $2, $3, $4) RETURNING *',
     data
   )
 }

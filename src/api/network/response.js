@@ -1,18 +1,19 @@
-function successResponse(res, data, status = 200) {
+function successResponse(res, data, message = '', status = 200) {
   console.log(data)
 
   return res.status(status).json({
     error: false,
+    message,
     data,
   })
 }
 
-function errorResponse(res, message, status = 404) {
-  console.log(message)
+function errorResponse(res, error, status = 404) {
+  console.log(error)
 
   return res.status(status).json({
     error: true,
-    message,
+    message: error instanceof Error ? error.message : error,
   })
 }
 
