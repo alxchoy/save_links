@@ -23,6 +23,10 @@ function getUserByEmail(email) {
     queries
       .getUserByEmail(email)
       .then(res => {
+        if (res.rowCount < 1) {
+          reject(new Error('User not exist'))
+        }
+
         const user = {
           name: res.rows[0].name,
           email: res.rows[0].email,
